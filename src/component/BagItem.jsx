@@ -1,13 +1,22 @@
-const BagItem = () => {
-  const item = {
-    company: "Peter England",
-    item_name: "Jeans",
-    current_price: 3999,
-    original_price: 5999,
-    discount_percentage: "33%",
-    return_period: "30 days ",
-    delivery_date: "30 Dec",
+import { useDispatch } from "react-redux";
+import { bagActions } from "../store/bagSlice";
+import { MdDelete } from "react-icons/md";
+
+const BagItem = ({ item }) => {
+  const disptach = useDispatch();
+  const handleRemoveFromBag = () => {
+    console.log("handle remove from bag is being executed ");
+    disptach(bagActions.removeFromBag(item.id));
   };
+  // const item = {
+  //   company: "Peter England",
+  //   item_name: "Jeans",
+  //   current_price: 3999,
+  //   original_price: 5999,
+  //   discount_percentage: "33%",
+  //   return_period: "30 days ",
+  //   delivery_date: "30 Dec",
+  // };
   return (
     <div className="bag-item-container">
       <div className="item-left-part">
@@ -33,11 +42,8 @@ const BagItem = () => {
         </div>
       </div>
 
-      <div
-        className="remove-from-cart"
-        onClick={() => console.log("button is being clicked ")}
-      >
-        X
+      <div className="remove-from-cart" onClick={handleRemoveFromBag}>
+        <MdDelete />
       </div>
     </div>
   );

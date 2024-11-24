@@ -3,8 +3,12 @@ import { FaShoppingBag } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { IoIosPerson } from "react-icons/io";
 import { Link } from "react-router-dom";
+import bagSlice from "../store/bagSlice";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const bagItem = useSelector((store) => store.bagSlice) || [];
+  console.log("the value of the bag item is ", bagItem);
   return (
     <header>
       <div className="logo_container">
@@ -49,7 +53,7 @@ const Header = () => {
         <Link className="action_container" to="/bag">
           <FaShoppingBag />
           <span className="action_name">Bag</span>
-          <span className="bag-item-count">0</span>
+          <span className="bag-item-count">{bagItem.length}</span>
         </Link>
       </div>
     </header>

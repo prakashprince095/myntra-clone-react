@@ -1,32 +1,34 @@
+import BagSummary from "../routes/BagSummary";
+import { useSelector } from "react-redux";
 import BagItem from "../component/BagItem";
-import BagSummary from "../component/BagItem";
-import Footer from "../component/Footer";
-import Header from "../component/Header";
 const Bag = () => {
-  const item = {
-    company: "Peter England",
-    item_name: "Jeans",
-    current_price: 3999,
-    original_price: 5999,
-    discount_percentage: "33%",
-    return_period: "30 days ",
-    delivery_date: "30 Dec",
-  };
-  const itemSummary = {
-    totalItem: 1,
-    totalMRP: 2999,
-    totalDiscount: 2000,
-    finalAmount: 1099,
-  };
+  const bagItems = useSelector((store) => store.bagSlice);
+  const items = useSelector((store) => store.items);
+  const finalItem = items.filter((item) => {
+    const itemIndex = bagItems.indexOf(item.id);
+    return itemIndex >= 0;
+  });
+  // const item = {
+  //   company: "Peter England",
+  //   item_name: "Jeans",
+  //   current_price: 3999,
+  //   original_price: 5999,
+  //   discount_percentage: "33%",
+  //   return_period: "30 days ",
+  //   delivery_date: "30 Dec",
+  // };
+
   return (
     <>
       <main>
         <div className="bag-page">
           <div className="bag-items-container">
-            <BagItem />
+            {finalItem.map((item) => (
+              <BagItem key={item.id} item={item}></BagItem>
+            ))}
           </div>
           <div className="bag-summary">
-            <BagSummary itemSummary={itemSummary} />
+            <BagSummary></BagSummary>
           </div>
         </div>
       </main>
